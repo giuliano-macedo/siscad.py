@@ -4,37 +4,13 @@ from collections import namedtuple
 from urllib.parse import urljoin
 import os
 import re
+from model import Nota,Disciplina,Semestre
 
 base_url="https://siscad.ufms.br"
 base_url_join=lambda *args:urljoin(base_url,os.path.join(*args))
-class Semestre:
-	def __init__(self,date,discs):
-		self.date=date
-		self.discs=discs
-	def __str__(self):
-		return f"<Semestre data={self.date} discs={self.discs}>"
-class Disciplina():
-	def __init__(self,sess,nome,ch,_id):
-		self.id=_id
-		self.nome=nome
-		self.ch=ch
-		self.sess=sess
-		self.is_cached=False
-	def update(self):
-		self.is_cached|=True
-		res=self.sess.get(base_url_join("academico","disciplinas",self.id))
-		self.__parser(res.text)
-	def get_notas(self):
-		pass
-	def get_presenca(self):
-		pass
-	def get_plano_ensino(self):
-		pass
-	def __str__(self):
-		return f"<Disciplina nome={self.nome} id={self.id} ch={self.ch}>"
-	def __repr__(self):
-		return str(self)
+
 class Siscad:
+	
 	def __init__(self,passaporte,senha):
 		"""
 			login no SISCAD
@@ -56,6 +32,8 @@ class Siscad:
 		if res.url!=base_url_join("academico"):
 			raise RuntimeError("Senha/Passaporte Invalido")
 		self.__main_parser(res.text)
+	def request_getter(self,*args):
+		return self.sess.get(base_url_join(*args))
 	def get_disciplinas(self):
 		res=self.sess.get(base_url_join("academico","disciplinas"))
 		return self.__disciplinas_parser(res.text)
@@ -75,7 +53,7 @@ class Siscad:
 				situacao=td[1].text.strip()
 				ch=	 td[2].text.strip()
 				_id= re.search(r"\d+",td[3].select_one("a").attrs["href"]).group(0)
-				sem.discs.append(Disciplina(self.sess,nome,ch,_id))
+				sem.discs.append(Disciplina(self.request_getter,nome,ch,_id))
 			ans.append(sem)
 		return ans
 
@@ -94,4 +72,3 @@ class Siscad:
 		self.discs_feitas=int(discs_feitas)
 		#ultima_matricula
 		self.ultima_matricula=soup.select_one("h3.box-title.color-gray").text.split(":")[-1].strip()
-
