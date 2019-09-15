@@ -6,6 +6,8 @@ import os
 import re
 from model import Nota,Disciplina,Semestre
 
+regex_extract_number=lambda s:int(re.search(r"\d+",s).group(0))
+
 base_url="https://siscad.ufms.br"
 base_url_join=lambda *args:urljoin(base_url,os.path.join(*args))
 
@@ -51,9 +53,9 @@ class Siscad:
 				td=tr.select("td")
 				nome=td[0].text.strip()
 				situacao=td[1].text.strip()
-				ch=	 td[2].text.strip()
-				_id= re.search(r"\d+",td[3].select_one("a").attrs["href"]).group(0)
-				sem.discs.append(Disciplina(self.request_getter,nome,ch,_id))
+				ch=	 regex_extract_number(td[2].text.strip())
+				_id= regex_extract_number(td[3].select_one("a").attrs["href"])
+				sem.discs.append(Disciplina(base_url,self.sess.cookies.get("CAKEPHP"),nome,ch,_id))
 			ans.append(sem)
 		return ans
 
