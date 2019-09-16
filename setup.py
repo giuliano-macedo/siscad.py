@@ -1,8 +1,8 @@
 import setuptools
 setuptools.setup(
-	name='siscad-test',
+	name='siscad',
 	license='GPLv3',
-	version='0.0.4',
+	version='0.0.1',
 	author="Giuliano Oliveira De Macedo",
 	author_email="giuliano.llpinokio@gmail.com",
 	description="Module for siscad.ufms.br",
