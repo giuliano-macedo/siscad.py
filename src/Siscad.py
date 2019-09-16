@@ -36,7 +36,7 @@ class Siscad:
 		self.__main_parser(res.text)
 	def request_getter(self,*args):
 		return self.sess.get(base_url_join(*args))
-	def get_disciplinas(self):
+	def get_semestres(self):
 		res=self.sess.get(base_url_join("academico","disciplinas"))
 		return self.__disciplinas_parser(res.text)
 	def __disciplinas_parser(self,doc):
