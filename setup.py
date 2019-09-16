@@ -1,8 +1,8 @@
 import setuptools
 setuptools.setup(
-	name='siscad',
+	name='siscad-test',
 	license='GPLv3',
-	version='0.0.1',
+	version='0.0.4',
 	author="Giuliano Oliveira De Macedo",
 	author_email="giuliano.llpinokio@gmail.com",
 	description="Module for siscad.ufms.br",
@@ -11,7 +11,7 @@ setuptools.setup(
 	long_description_content_type="text/markdown",
 	keywords=["web-scraping"],
 	url="https://github.com/llpinokio/siscad.py",
-	packages=["siscad"],
+	packages=setuptools.find_packages(),
 	install_requires=open("requirements.txt").read().split(),
 	classifiers=[
 		"Development Status :: 4 - Beta",
