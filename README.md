@@ -2,7 +2,7 @@
 
 ## Exemplo
 ```python
-from Siscad import Siscad
+from siscad import Siscad
 siscad=Siscad.Siscad("passaporte","senha") 
 
 print(siscad.rga)

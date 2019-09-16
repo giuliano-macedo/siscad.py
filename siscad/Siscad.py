@@ -4,7 +4,7 @@ from collections import namedtuple
 from urllib.parse import urljoin
 import os
 import re
-from model import Nota,Disciplina,Semestre
+from .model import Nota,Disciplina,Semestre
 
 regex_extract_number=lambda s:int(re.search(r"\d+",s).group(0))
 
