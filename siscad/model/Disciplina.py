@@ -3,6 +3,9 @@ from . import Nota,Semestre,Frequencia
 import requests
 import html2markdown
 import re
+from itertools import chain
+from collections import Counter
+
 
 class Disciplina():
 	__request_getter=None
@@ -34,6 +37,11 @@ class Disciplina():
 		self.__is_cached|=True
 		res=self.__sess.get(f"{self.base_url}/academico/disciplinas/{self.id}")
 		self.__parser(res.text)
+	def get_faltas(self):
+		freqs=Counter(chain.from_iterable([f.chamadas for f in self.frequencias])).get(False,0)
+		return freqs*100/self.ch
+	def get_presencas(self):
+		return 100-self.get_faltas()
 	def __repr__(self):
 		return f"""
 				Disciplina(

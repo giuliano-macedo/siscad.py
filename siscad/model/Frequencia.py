@@ -1,4 +1,4 @@
-from collections import namedtuple,Counter
+from collections import namedtuple
 from datetime import datetime
 class Frequencia(namedtuple("Frequencia",["dt","tipo","chamadas"])):
 	def _parser(year,day_month,hour_minute,tipo,chamadas):
@@ -13,5 +13,3 @@ class Frequencia(namedtuple("Frequencia",["dt","tipo","chamadas"])):
 		)
 		chamadas=[True if c=="P" else (False if c=="F" else None) for c in chamadas]
 		return Frequencia(dt,tipo,chamadas)
-	def count(self):
-		return Counter(self.chamadas)
