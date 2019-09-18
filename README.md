@@ -1,3 +1,4 @@
+![PyPI](https://img.shields.io/pypi/v/siscad)
 # Módulo para extrair informações do Siscad
 
 ## Exemplo
