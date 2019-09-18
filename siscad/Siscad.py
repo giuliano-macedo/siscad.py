@@ -8,11 +8,10 @@ from .model import Nota,Disciplina,Semestre
 
 regex_extract_number=lambda s:int(re.search(r"\d+",s).group(0))
 
-base_url="https://siscad.ufms.br"
-base_url_join=lambda *args:urljoin(base_url,os.path.join(*args))
+base_url_join=lambda *args:urljoin(Siscad.base_url,os.path.join(*args))
 
 class Siscad:
-	
+	base_url="https://siscad.ufms.br"
 	def __init__(self,passaporte,senha):
 		"""
 			login no SISCAD
@@ -38,6 +37,8 @@ class Siscad:
 		return self.sess.get(base_url_join(*args))
 	def get_semestres(self):
 		res=self.sess.get(base_url_join("academico","disciplinas"))
+		if not res.ok:
+			raise RuntimeError("Falha ao acessar endereço \"%s\""%res.url)
 		return self.__disciplinas_parser(res.text)
 	def __disciplinas_parser(self,doc):
 		soup=BS(doc,"html.parser")
@@ -55,7 +56,7 @@ class Siscad:
 				situacao=td[1].text.strip()
 				ch=	 regex_extract_number(td[2].text.strip())
 				_id= regex_extract_number(td[3].select_one("a").attrs["href"])
-				sem.discs.append(Disciplina(base_url,self.sess.cookies.get("CAKEPHP"),nome,ch,_id))
+				sem.discs.append(Disciplina(Siscad.base_url,self.sess.cookies.get("CAKEPHP"),nome,ch,_id))
 			ans.append(sem)
 		return ans
 
