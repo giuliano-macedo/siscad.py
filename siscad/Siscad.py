@@ -58,7 +58,7 @@ class Siscad:
 				_id= regex_extract_number(td[3].select_one("a").attrs["href"])
 				sem.discs.append(Disciplina(Siscad.base_url,self.sess.cookies.get("CAKEPHP"),nome,ch,_id))
 			ans.append(sem)
-		return ans
+		return ans[::-1]
 
 	def __main_parser(self,doc):
 		soup=BS(doc,"html.parser")
