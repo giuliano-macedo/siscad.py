@@ -52,10 +52,10 @@ class Siscad:
 			)
 			for tr in div.select_one("table").select("tr")[1:]:
 				td=tr.select("td")
-				nome=td[0].text.strip()
-				situacao=td[1].text.strip()
-				ch=	 regex_extract_number(td[2].text.strip())
-				_id= regex_extract_number(td[3].select_one("a").attrs["href"])
+				_id= 		regex_extract_number(td[0].select_one("a").attrs["href"])
+				nome=		td[1].text.strip()
+				situacao=	td[3].text.strip()
+				ch=	 		regex_extract_number(td[4].text.strip())
 				sem.discs.append(Disciplina(Siscad.base_url,self.sess.cookies.get("CAKEPHP"),nome,ch,_id))
 			ans.append(sem)
 		return ans[::-1]
