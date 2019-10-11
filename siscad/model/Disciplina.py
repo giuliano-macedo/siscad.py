@@ -5,7 +5,7 @@ import html2markdown
 import re
 from itertools import chain
 from collections import Counter
-
+from .. import HEADERS
 
 class Disciplina():
 	__request_getter=None
@@ -15,6 +15,7 @@ class Disciplina():
 		self.__ch=ch
 		self.__is_cached=False
 		self.__sess=requests.Session()
+		self.__sess.headers=HEADERS
 		cookie_obj = requests.cookies.create_cookie(
 			domain='siscad.ufms.br',
 			name='CAKEPHP',

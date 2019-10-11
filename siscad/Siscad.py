@@ -1,14 +1,16 @@
-from requests import Session
+import requests
 from bs4 import BeautifulSoup as BS
 from collections import namedtuple
 from urllib.parse import urljoin
 import os
 import re
 from .model import Nota,Disciplina,Semestre
+from . import HEADERS
 
 regex_extract_number=lambda s:int(re.search(r"\d+",s).group(0))
 
 base_url_join=lambda *args:urljoin(Siscad.base_url,os.path.join(*args))
+
 
 class Siscad:
 	base_url="https://siscad.ufms.br"
@@ -25,7 +27,8 @@ class Siscad:
 				discs_feitas:int
 				discs:list de tipo Disciplina
 		"""
-		self.sess=Session()
+		self.sess=requests.Session()
+		self.sess.headers=HEADERS
 		res=self.sess.post(
 			base_url_join("login"), 
 			data={"passaporte":passaporte,"senha":senha}
@@ -33,10 +36,10 @@ class Siscad:
 		if res.url!=base_url_join("academico"):
 			raise RuntimeError("Senha/Passaporte Invalido")
 		self.__main_parser(res.text)
-	def request_getter(self,*args):
+	def __request_getter(self,*args):
 		return self.sess.get(base_url_join(*args))
 	def get_semestres(self):
-		res=self.sess.get(base_url_join("academico","disciplinas"))
+		res=self.__request_getter("academico","disciplinas")
 		if not res.ok:
 			raise RuntimeError("Falha ao acessar endereço \"%s\""%res.url)
 		return self.__disciplinas_parser(res.text)
