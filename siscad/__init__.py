@@ -1,4 +1,4 @@
-__version__="0.0.2" #FIRST LINE MUST BE THE VERSION
+__version__="0.0.3" #FIRST LINE MUST BE THE VERSION
 
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent
 # Mozilla/<version> (<system-information>) <platform> (<platform-details>) <extensions>
