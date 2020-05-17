@@ -4,7 +4,7 @@
 ## Exemplo
 ```python
 from siscad import Siscad
-siscad=Siscad.Siscad("passaporte","senha") 
+siscad=Siscad("passaporte","senha") 
 
 print(siscad.rga)
 print(siscad.nome)
