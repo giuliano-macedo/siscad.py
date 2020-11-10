@@ -1,7 +1,7 @@
 from pathlib import Path
 
 script_path = Path(__file__).parent
-__version__ = (script_path / "VERSION").read_text().strip()
+__version__ = (script_path / "_version.py").read_text().strip()
 
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent
 # Mozilla/<version> (<system-information>) <platform> (<platform-details>) <extensions>

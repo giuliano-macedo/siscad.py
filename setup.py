@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 from pathlib import Path
 
-version = Path("./siscad/VERSION").read_text().strip()
+version = Path("./siscad/_version.py").read_text().strip()
 setup(
     name="siscad",
     license="GPLv3",

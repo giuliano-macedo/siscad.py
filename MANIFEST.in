@@ -1,2 +1,2 @@
 include README.md LICENSE.txt requirements.txt
-recursive-include siscad *.py VERSION
+recursive-include siscad *.py
